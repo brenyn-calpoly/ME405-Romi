@@ -1,6 +1,6 @@
 # Romi Project
-# Authors: Jonah Prichard & Brenyn Northey
-# Course: ME 405
-# Instructor: Charlie Refvem
+# Line Following Robot
 
+A differential-drive robot that autonomously follows a high-contrast track using a
+centroid-based line sensor algorithm and PID motor control.
 
