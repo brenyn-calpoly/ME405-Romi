@@ -11,7 +11,19 @@ This project utilizes a differential-drive robot (Romi) that autonomously follow
 
 The image above is of Romi, a differential-drive robot kit produced by Pololu.
 
-Chasis:
+Chassis:
+Romi's chassis is injection molded plastic with a diameter of 165 mm and an integrated battery holder. It is powered by six AA batteries.
 
+Wheels:
+Two Pololu 70x8 mm wheels are attached to the motor shafts. These wheels have silicone tires for gripping the surface.
+
+Motors:
+Romi uses two brushed DC plastic gearmotors, operating at a nominal voltage of 4.5 V. It's gearbox ratio is 120:1.
+
+Encoders:
+For rotational distance and velocity tracking two quadrature encoders attached to the mini plastic gearmotors were implemented. The encoders are dual-channel Hall effect sensors. They offer a resolution of 12 counts per revolution, but paired with 120:1 gearmotors, the effective resolution is 1440 counts per wheel revolution.
+
+Reflectance Sensor:
+INSERT NAME, a five channel reflectance sensor board
 
 
