@@ -11,7 +11,7 @@ This project utilizes a differential-drive robot (Romi) that autonomously follow
 
 The image above is of Romi, a differential-drive robot kit produced by Pololu.
 
-**Chassis:**
+**Chassis:**  
 Romi's chassis is injection molded plastic with a diameter of 165 mm and an integrated battery holder. It is powered by six AA batteries.
 
 
