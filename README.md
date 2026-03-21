@@ -90,6 +90,9 @@ Romi uses cooperative tasking to run through the various tasks required to compl
 
 **Tasks:**  
 
+<img width="786" height="889" alt="Romi Task Diagram" src="https://github.com/user-attachments/assets/76a0caf2-913d-46c8-9581-2df607958d52" />
+
+
 **leftMotorTask & rightMotorTask:**  
 Each motor task is instantiated with its respective motor object, encoder object, controller object, motorGo share, and motor effort share. Each motor task runs periodically at 25 ms with priority 1. The responsibilities of each motor task include: Updating and retrieving velocity data from the encoders, applying a closed-loop PI controller to get motor effort, and commanding motor effort. Each motor task remains in an idle state until its corresponding go flag is set by the UI task. Although both tasks use the same class definition, they operate independently because each instance uses its own internal variables, motor driver object, encoder object, and shares. 
 
