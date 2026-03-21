@@ -105,10 +105,3 @@ plannerTask:
 | User Push Button | External Interrupt | C13 | Falling edge interrupt      |
 
 
-
-
-
-# Software
-**Overview:**  
-Romi utilizes cooperative tasking to run through the various tasks which 
-
