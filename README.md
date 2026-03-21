@@ -4,6 +4,7 @@ This project uses a differential-drive robot (Romi) that autonomously follows a 
 
 # Demonstration
 [![Watchthedemo](https://img.youtube.com/vi/rJuXOP3_y1Q/0.jpg)](https://youtu.be/rJuXOP3_y1Q)
+![ME405Track](https://github.com/user-attachments/assets/66447394-3b0a-4a0a-a0d2-30eefef25190)
 
 # Hardware
 ![romi](https://github.com/user-attachments/assets/43540a37-eb58-451f-94a6-f14b92d9e887)
