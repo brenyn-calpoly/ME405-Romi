@@ -90,13 +90,16 @@ Romi uses cooperative tasking to run through the various tasks required to compl
 
 **Tasks:**  
 
+Task Diagram:
 <img width="786" height="889" alt="Romi Task Diagram" src="https://github.com/user-attachments/assets/76a0caf2-913d-46c8-9581-2df607958d52" />
 
 
 **leftMotorTask & rightMotorTask:**  
 Each motor task is instantiated with its respective motor object, encoder object, controller object, motorGo share, and motor effort share. Each motor task runs periodically at 25 ms with priority 1. The responsibilities of each motor task include: Updating and retrieving velocity data from the encoders, applying a closed-loop PI controller to get motor effort, and commanding motor effort. Each motor task remains in an idle state until its corresponding go flag is set by the UI task. Although both tasks use the same class definition, they operate independently because each instance uses its own internal variables, motor driver object, encoder object, and shares. 
 
-DIAGRAMS HERE
+<img width="933" height="880" alt="Left Motor Task State Diagram" src="https://github.com/user-attachments/assets/1efaac74-e904-4ab8-9584-d24ddb7cac96" />
+
+<img width="1003" height="880" alt="Right Motor Task State Diagram" src="https://github.com/user-attachments/assets/dad63bc0-b3b5-4a4a-9083-ad8e2cd80ef0" />
 
 **States**
 
@@ -109,7 +112,7 @@ This measures the current encoder value, then calculates its respective motor ve
 **userTask:**  
 The User Interface (UI) task is strictly used for calibrating the reflectance sensors for line following. It is instantiated with simply whiteFlag and blackFlag. Both are shares filled with a single boolean. The UI task runs at priority 0 and handles serial communication through PuTTY. The UI task is separated from the motor tasks to prevent serial communication from interfering with critical control execution.
 
-DIAGRAMS HERE
+<img width="1270" height="828" alt="User Interface State Diagram" src="https://github.com/user-attachments/assets/9103f137-d855-4a0b-adcb-4f2f9544178d" />
 
 **States**  
 
@@ -128,7 +131,7 @@ The UI prompts the user to press “b” on the keyboard to trigger the black po
 **Task_follower:**  
 This task’s purpose is to calibrate the reflectance sensor array and perform line following. The line follower task is instantiated with a line array object, line channels array, whiteFlag share, blackFlag share, setpoint share, vDiff share, leftEffort share, rightEffort share, and followEnable share. The line array object is an instance of the lineArray class, while the line channels array is an array of the five line channels for use in the lineArray class. whiteFlag and blackFlag are as discussed in the userTask section. Setpoint is a share that contains the default forward speed in mm/s of each motor while line following. vDiff is a share that contains the differential speed added to or subtracted from the setpoint. leftEffort and rightEffort are shares that contain the speed in mm/s at which motorTask uses to control motor speed. followEnable is a boolean share that enables and disables line following. lineTask has a priority of 1 and a period of 25 ms.
 
-DIAGRAM HERE
+<img width="897" height="885" alt="Line Follower Task State Diagram" src="https://github.com/user-attachments/assets/fd2a11df-c389-466e-a16d-7a5f880d5882" />
 
 **States**
 
@@ -142,7 +145,7 @@ The run state is where all of the line following occurs. The centroid is generat
 **plannerTask:**  
 The plannerTask plans Romi’s movements, transitioning through a finite state machine. This task is instantiated with the startFlag share, followEnable share, leftMotorGo and rightMotorGo shares, setpoint share, vDiff share, leftEncoder and rightEncoder objects, rightEffort and leftEffort shares, dSense object, and lineArray object. The startFlag share is filled with a single Boolean object that starts the finite state machine. This is actuated using the onboard button on the NUCLEO-L476RG. The rightMotorGo, leftMotorGo, leftEncoder, and rightEncoder shares are discussed in the motorTask section. The followEnable, setpoint, vDiff, rightEffort, and leftEffort shares are discussed previously in the lineTask section. The leftMotorGo and rightMotorGo are discussed in the motorTask section. The lineArray object is also discussed in the lineTask section. The dSense object is an instance of the distance class used to measure Romi’s distance from an object using the ultrasonic range sensor. 
 
-DIAGRAM
+<img width="1041" height="899" alt="Planner Task State Diagram" src="https://github.com/user-attachments/assets/b81623ee-500f-4b00-8406-baa92476daaf" />
 
 **States**  
 
