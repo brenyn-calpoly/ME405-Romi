@@ -3,7 +3,10 @@
 This project uses a differential-drive robot (Romi) that autonomously follows a high-contrast track using a centroid-based line-sensor algorithm and PID motor controllers. Additionally, to track distance, two quadrature encoders, one on each gear motor, are used in the wheel system. These encoders measure the rotational distance of each wheel, allowing Romi's travel distance to be set for sections of the track where line following is not applicable. 
 
 # Demonstration
-[![Watchthedemo](https://img.youtube.com/vi/rJuXOP3_y1Q/0.jpg)](https://youtu.be/rJuXOP3_y1Q)
+Demo Video:  
+[![Watchthedemo](https://img.youtube.com/vi/rJuXOP3_y1Q/0.jpg)](https://youtu.be/rJuXOP3_y1Q)  
+
+Course:  
 ![ME405Track](https://github.com/user-attachments/assets/66447394-3b0a-4a0a-a0d2-30eefef25190)
 
 # Hardware
@@ -182,7 +185,7 @@ This state is the last portion of the line following. Line following is reactiva
 S13_Finish:  
 Romi performs one more arcing turn to the right by biasing one motor faster than the other. Romi stops after 80 mm over the spot where the course began. The state transitions back to S0_wait.
 
-**Sensor Drivers and Additional Software:**  
+# Sensor Drivers and Additional Software:  
 
 controller.py:  
 This class allows for a controller object to be created within the motor task. This is a PI controller with feed-forward gain.
@@ -206,5 +209,4 @@ line_sensor_driver.py:
 This file contains two classes: LineChannel and LineArray. LineChannel allows for the creation of individual ADC channels for each reflectance sensor. LineArray creates a line array object that creates the centroid for control purposes.
 
 range_driver.py:  
-
 The range_driver class allows the creation of the distance sensor object for distance measuring.
