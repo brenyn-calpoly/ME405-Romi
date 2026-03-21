@@ -37,38 +37,6 @@ For this project, the QTRX-MD-05A 5-channel reflectance sensor array was impleme
 **Ultrasonic Distance Sensor:**  
 The HC-SR04 ultrasonic distance sensor allows Romi to detect an object from 2 to 400 cm away. The sensor sends a 10 µs, 40 kHz pulse that reflects off an object and is received by the sensor. The amount of time between pulse transmission and reception allows the distance to be calculated.
 
-
-# Software
-
-**Software Overview:**  
-Romi uses cooperative tasking to run through the various tasks required to complete the obstacle course. Each task is implemented as a finite state machine. In total, Romi runs five tasks: leftMotorTask, rightMotorTask, userTask, lineTask, and plannerTask. In addition, some classes complement these tasks by serving as sensor drivers. Another class is our motor controller.
-
-**Tasks:**  
-
-leftMotorTask & rightMotorTask:  
-Each motor task is instantiated with its respective motor object, encoder object, controller object, motorGo share, and motor effort share. Each motor task runs periodically at 25 ms with priority 1. The responsibilities of each motor task include: Updating and retrieving velocity data from the encoders, applying a closed-loop PI controller to get motor effort, and commanding motor effort. Each motor task remains in an idle state until its corresponding go flag is set by the UI task. Although both tasks use the same class definition, they operate independently because each instance uses its own internal variables, motor driver object, encoder object, and shares. 
-
-INSERT FINITE STATE MACHINE DIAGRAMS
-
-userTask:  
-The User Interface (UI) task is strictly used for calibrating the reflectance sensors for line following. It is instantiated with simply whiteFlag and blackFlag. Both are shares filled with a single boolean. The UI task runs at priority 0 and handles serial communication through PuTTY. The UI task is separated from the motor tasks to prevent serial communication from interfering with critical control execution.
-
-INSERT FINITE STATE MACHINE DIAGRAM
-
-STATE DISCUSSION
-
-lineTask:
-The line follower task is instantiated with a line array object, line channels array, whiteFlag share, blackFlag share, setpoint share, vDiff share, leftEffortSet share, rightEffortSet share, and followEnable share.  
-The line array object is an instance of the lineArray class, while the line channels array is an array of the five line channels for use in the lineArray class. whiteFlag and blackFlag are as discussed in the userTask section. Setpoint is a share that contains the default forward speed in mm/s of each motor while line following. vDiff is a share that contains the differential speed added to or subtracted from the setpoint. leftEffortSet and rightEffortSet are shares that contain the speed in mm/s at which motorTask uses to control motor speed. followEnable is a boolean share that enables and disables line following. lineTask has a priority of 1 and a period of 25 ms.
-
-INSERT FINITE STATE MACHINE DIAGRAM
-
-STATE DISCUSSION
-
-plannerTask:  
-
-
-
 # NUCLEO-L476RG Pin Assignments
 
 | Component        | Function           | Pin | Notes                       |
@@ -103,5 +71,36 @@ plannerTask:
 | Echo             | Digital Input      | C7  | Receives signal (Pull Down) |
 | **User Input**   |                    |     |                             |
 | User Push Button | External Interrupt | C13 | Falling edge interrupt      |
+
+
+# Software
+
+**Software Overview:**  
+Romi uses cooperative tasking to run through the various tasks required to complete the obstacle course. Each task is implemented as a finite state machine. In total, Romi runs five tasks: leftMotorTask, rightMotorTask, userTask, lineTask, and plannerTask. In addition, some classes complement these tasks by serving as sensor drivers. Another class is our motor controller.
+
+**Tasks:**  
+leftMotorTask & rightMotorTask:  
+Each motor task is instantiated with its respective motor object, encoder object, controller object, motorGo share, and motor effort share. Each motor task runs periodically at 25 ms with priority 1. The responsibilities of each motor task include: Updating and retrieving velocity data from the encoders, applying a closed-loop PI controller to get motor effort, and commanding motor effort. Each motor task remains in an idle state until its corresponding go flag is set by the UI task. Although both tasks use the same class definition, they operate independently because each instance uses its own internal variables, motor driver object, encoder object, and shares. 
+
+INSERT FINITE STATE MACHINE DIAGRAMS
+
+userTask:  
+The User Interface (UI) task is strictly used for calibrating the reflectance sensors for line following. It is instantiated with simply whiteFlag and blackFlag. Both are shares filled with a single boolean. The UI task runs at priority 0 and handles serial communication through PuTTY. The UI task is separated from the motor tasks to prevent serial communication from interfering with critical control execution.
+
+INSERT FINITE STATE MACHINE DIAGRAM
+
+STATE DISCUSSION
+
+lineTask:  
+The line follower task is instantiated with a line array object, line channels array, whiteFlag share, blackFlag share, setpoint share, vDiff share, leftEffortSet share, rightEffortSet share, and followEnable share.  
+The line array object is an instance of the lineArray class, while the line channels array is an array of the five line channels for use in the lineArray class. whiteFlag and blackFlag are as discussed in the userTask section. Setpoint is a share that contains the default forward speed in mm/s of each motor while line following. vDiff is a share that contains the differential speed added to or subtracted from the setpoint. leftEffortSet and rightEffortSet are shares that contain the speed in mm/s at which motorTask uses to control motor speed. followEnable is a boolean share that enables and disables line following. lineTask has a priority of 1 and a period of 25 ms.
+
+INSERT FINITE STATE MACHINE DIAGRAM
+
+STATE DISCUSSION
+
+plannerTask:  
+
+
 
 
