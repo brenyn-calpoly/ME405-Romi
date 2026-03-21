@@ -44,12 +44,12 @@ Romi uses cooperative tasking to run through the various tasks required to compl
 
 **Tasks:**  
 
-leftMotorTask & rightMotorTask:  
+**leftMotorTask & rightMotorTask:**  
 Each motor task is instantiated with its respective motor object, encoder object, controller object, motorGo share, and motor effort share. Each motor task runs periodically at 25 ms with priority 1. The responsibilities of each motor task include: Updating and retrieving velocity data from the encoders, applying a closed-loop PI controller to get motor effort, and commanding motor effort. Each motor task remains in an idle state until its corresponding go flag is set by the UI task. Although both tasks use the same class definition, they operate independently because each instance uses its own internal variables, motor driver object, encoder object, and shares. 
 
 INSERT FINITE STATE MACHINE DIAGRAMS
 
-States
+**States**
 
 S0_WAIT:
 This state waits for the goFlag to be set to True by the planner task. Once True, it transitions to the run state.
@@ -57,12 +57,12 @@ This state waits for the goFlag to be set to True by the planner task. Once True
 S1_RUN:
 This measures the current encoder value, then calculates its respective motor velocity. It also receives the velocity setpoint from the planner task or the line follower task, depending on the state of the planner task. The setpoint and measured velocity are input to the motor controller (controller.py), where a motor effort is calculated. Once the goFlag is set False elsewhere, the motor is disabled and transitions back to the waiting state.
 
-userTask:  
+**userTask:**  
 The User Interface (UI) task is strictly used for calibrating the reflectance sensors for line following. It is instantiated with simply whiteFlag and blackFlag. Both are shares filled with a single boolean. The UI task runs at priority 0 and handles serial communication through PuTTY. The UI task is separated from the motor tasks to prevent serial communication from interfering with critical control execution.
 
 INSERT FINITE STATE MACHINE DIAGRAM
 
-States  
+**States**  
 
 S0_INIT:  
 This is the initialization state for the UI task. It prints the UI menu for calibration.
@@ -76,12 +76,12 @@ This state prompts the user to press “w” on the keyboard to trigger the whit
 S3_BLK_C:  
 The UI prompts the user to press “b” on the keyboard to trigger the black portion of the reflectance sensor calibration. Once “b” is read, it sets the blackFlag True and transitions back to S0_init.
 
-Task_follower:  
+**Task_follower:**  
 This task’s purpose is to calibrate the reflectance sensor array and perform line following. The line follower task is instantiated with a line array object, line channels array, whiteFlag share, blackFlag share, setpoint share, vDiff share, leftEffort share, rightEffort share, and followEnable share. The line array object is an instance of the lineArray class, while the line channels array is an array of the five line channels for use in the lineArray class. whiteFlag and blackFlag are as discussed in the userTask section. Setpoint is a share that contains the default forward speed in mm/s of each motor while line following. vDiff is a share that contains the differential speed added to or subtracted from the setpoint. leftEffort and rightEffort are shares that contain the speed in mm/s at which motorTask uses to control motor speed. followEnable is a boolean share that enables and disables line following. lineTask has a priority of 1 and a period of 25 ms.
 
 INSERT FINITE STATE MACHINE DIAGRAM
 
-States
+**States**
 
 S0_INIT:  
 The initialization task waits for the UI to trigger calibration of the reflectance sensors. It waits for whiteFlag and blackFlag to both be set to True before transitioning to the run state.
@@ -91,12 +91,12 @@ The run state is where all of the line following occurs. The centroid is generat
 
 
 
-plannerTask:  
+**plannerTask:**  
 The plannerTask plans Romi’s movements, transitioning through a finite state machine. This task is instantiated with the startFlag share, followEnable share, leftMotorGo and rightMotorGo shares, setpoint share, vDiff share, leftEncoder and rightEncoder objects, rightEffort and leftEffort shares, dSense object, and lineArray object. The startFlag share is filled with a single Boolean object that starts the finite state machine. This is actuated using the onboard button on the NUCLEO-L476RG. The rightMotorGo, leftMotorGo, leftEncoder, and rightEncoder shares are discussed in the motorTask section. The followEnable, setpoint, vDiff, rightEffort, and leftEffort shares are discussed previously in the lineTask section. The leftMotorGo and rightMotorGo are discussed in the motorTask section. The lineArray object is also discussed in the lineTask section. The dSense object is an instance of the distance class used to measure Romi’s distance from an object using the ultrasonic range sensor. 
 
 INSERT FINITE STATE MACHINE DIAGRAM
 
-States  
+**States**  
 
 S0_WAIT:  
 This state waits for the onboard button to be pressed to begin the obstacle course and zeros the encoder values. 
@@ -178,5 +178,6 @@ Romi performs one more arcing turn to the right by biasing one motor faster than
 | Echo             | Digital Input      | C7  | Receives signal (Pull Down) |
 | **User Input**   |                    |     |                             |
 | User Push Button | External Interrupt | C13 | Falling edge interrupt      |
+
 
 
