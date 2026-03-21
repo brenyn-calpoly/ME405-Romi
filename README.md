@@ -50,7 +50,7 @@ The Shoe of Brian is an ME 405-specific piece of ancillary hardware that allows 
 
 | Component        | Function           | Pin | Notes                       |
 |------------------|--------------------|-----|-----------------------------|
-| **Power**        |                    |     |                             |
+| **Power**                                                                 |
 | NUCLEO-L476RG    | Power in           | VIN | 7V - 12V (From Power Board) |
 | NUCLEO-L476RG    | Ground             | GND | 0V Reference                |
 | Line Sensor      | Power in           | 3V3 | 3.3V                        |
